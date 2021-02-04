@@ -1,0 +1,10 @@
+[
+    {
+        "Fname": "xyz",
+        "DiscordID":"nimi#123",
+        "rank": "Legend",
+        "Tpoints": 10,
+        "Cpoints": [2, 4, 8],
+        "EventsAttended": 2
+    }
+]
