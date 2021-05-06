@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const User = new mongoose.Schema({
+const user = new mongoose.Schema({
     FullName : String,
     points: {
         type: Number,
@@ -22,4 +22,4 @@ const User = new mongoose.Schema({
     },
 });
 
-module.exports = User = mongoose.model('User', User);
+module.exports = User = mongoose.model('User', user);
