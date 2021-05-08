@@ -21,11 +21,11 @@ connectDB();
 const PORT = process.env.PORT || 8080;
 console.log(PORT);
 
-// @desc To get information of all users on the database
-app.get('/users', async (req, res, next) => {
+// All fucntion used by routes
+async function getAllUsers(req, res, next){
     const users = await User.find();
     res.status(200).json({sucess: true, count: users.legth,users: users});
-});
+}
 
 async function newuser(req, res, next){
     let user = await User.create(req.body);
@@ -42,6 +42,10 @@ async function updatePoints(req, res, next){
     console.log(user);
     res.status(200).json({sucess: true, user: user})
 }
+
+
+// All Routes used
+app.get('/users', getAllUsers);
 
 app.post('/newuser', newuser);
 
