@@ -45,6 +45,9 @@ async function updatePoints(req, res, next){
 
 
 // All Routes used
+app.get('/', (req, res, next) => {
+    res.send('Welcome to Spilled My Coffee Here API!')
+});
 app.get('/users', getAllUsers);
 
 app.post('/newuser', newuser);
