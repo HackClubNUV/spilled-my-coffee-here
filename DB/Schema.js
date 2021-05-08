@@ -6,10 +6,6 @@ const user = new mongoose.Schema({
         type: Number,
         required: true
     },
-    rank: {
-        type: String,
-        required: true
-    },
     DiscordUSerID: {
         type: String,
         required: true,
@@ -18,7 +14,6 @@ const user = new mongoose.Schema({
     email: {
         type: String,
         required: true
-
     },
 });
 

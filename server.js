@@ -16,7 +16,7 @@ app.use(cors());
 
 // Mongo DB
 const connectDB = require('./DB/connection');
-connectDB();    
+connectDB();
 
 const PORT = process.env.PORT || 8080;
 console.log(PORT);
@@ -32,7 +32,22 @@ async function newuser(req, res, next){
     res.status(201).json({success: true, data: user}); 
 }
 
+async function deleteUser(req, res, next){
+    let user = await User.deleteOne({DiscordUSerID: req.body.DiscordUSerID})
+    res.json(200).json({sucess: true, user: {}})
+}
+
+async function updatePoints(req, res, next){
+    let user = await User.findOneAndUpdate({DiscordUSerID: req.body.DiscordUSerID}, {$inc: { points: 10}}, {new : true});
+    console.log(user);
+    res.status(200).json({sucess: true, user: user})
+}
+
 app.post('/newuser', newuser);
+
+app.delete('/deleteuser', deleteUser);
+
+app.put('/points', updatePoints);
 
 app.listen(PORT, () => {
     console.log(`The server in started on ${PORT}.`)
