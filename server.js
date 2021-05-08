@@ -21,11 +21,10 @@ connectDB();
 const PORT = process.env.PORT || 8080;
 console.log(PORT);
 
-// @desc To get information of all users on the database
-app.get('/users', async (req, res, next) => {
+async function getAllUsers(req, res, next){
     const users = await User.find();
-    res.status(200).json({sucess: true, count: users.legth,users: users});
-});
+    res.status(200).json({sucess: true, count: users.length ,users: users});    
+}
 
 async function newuser(req, res, next){
     let user = await User.create(req.body);
@@ -38,10 +37,11 @@ async function deleteUser(req, res, next){
 }
 
 async function updatePoints(req, res, next){
-    let user = await User.findOneAndUpdate({DiscordUSerID: req.body.DiscordUSerID}, {$inc: { points: 10}}, {new : true});
-    console.log(user);
-    res.status(200).json({sucess: true, user: user})
+    let user = await User.findOneAndUpdate({DiscordUSerID: req.body.DiscordUSerID}, {$inc: { points: req.body.points}}, {new : true});
+    res.status(200).json({sucess: true, user: user});
 }
+
+app.get('/users', getAllUsers);
 
 app.post('/newuser', newuser);
 
