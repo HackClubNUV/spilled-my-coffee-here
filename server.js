@@ -27,18 +27,26 @@ async function getAllUsers(req, res, next){
     res.status(200).json({sucess: true, count: users.legth,users: users});
 }
 
+async function getSingleUser(req, res, next){
+    const user = await User.findOne({points: '10'});
+    if(user)
+        res.status(200).json({sucess: true, user: user});
+    else
+        res.status(200).json({sucess: true, user: 'not found'});
+}
+
 async function newuser(req, res, next){
-    let user = await User.create(req.body);
-    res.status(201).json({success: true, data: user}); 
+        let user = await User.create(req.body);
+        res.status(201).json({success: true, user: user});         
 }
 
 async function deleteUser(req, res, next){
-    let user = await User.deleteOne({DiscordUSerID: req.body.DiscordUSerID})
+    let user = await User.deleteOne({DiscordUserID: req.body.DiscordUserID})
     res.json(200).json({sucess: true, user: {}})
 }
 
 async function updatePoints(req, res, next){
-    let user = await User.findOneAndUpdate({DiscordUSerID: req.body.DiscordUSerID}, {$inc: { points: 10}}, {new : true});
+    let user = await User.findOneAndUpdate({DiscordUserID: req.body.DiscordUserID}, {$inc: { points: 10}}, {new : true});
     console.log(user);
     res.status(200).json({sucess: true, user: user})
 }
@@ -49,6 +57,8 @@ app.get('/', (req, res, next) => {
     res.send('Welcome to Spilled My Coffee Here API!')
 });
 app.get('/users', getAllUsers);
+
+app.get('/user', getSingleUser);
 
 app.post('/newuser', newuser);
 
